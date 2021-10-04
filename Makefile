@@ -162,3 +162,9 @@ test: | go-check
 
 clean: | go-check
 	go clean ./cmd/spiffe-helper
+
+.PHONY: image
+image: Dockerfile
+	docker build --target spiffe-helper -t spiffe-helper .
+	docker tag spiffe-helper:latest spiffe-helper:latest-local
+
