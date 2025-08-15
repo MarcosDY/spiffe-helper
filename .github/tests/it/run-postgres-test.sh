@@ -11,6 +11,7 @@ ok(){
 
 fail(){
     echo -e "${RED}❌ $1 failed ${RESET}"
+    docker compose logs
 }
 
 testWithParameter(){
