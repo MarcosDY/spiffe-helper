@@ -28,6 +28,8 @@ services:
     depends_on:
       - spire-agent
     tty: true
+    ports:
+      - "5432:5432"
     volumes:
       - ./var/run/api.sock:/var/run/api.sock
       - ./postgres/helper.conf:/opt/spire/conf/postgres/helper.conf    
@@ -41,6 +43,8 @@ services:
     depends_on:
       - spire-agent
     tty: true
+    ports:
+      - "3306:3306"
     volumes:
       - ./var/run/api.sock:/var/run/api.sock
       - ./mysql/helper.conf:/opt/spire/conf/mysql/helper.conf
