@@ -1,4 +1,4 @@
-FROM alpine:3.17 AS postgres
+FROM alpine:3.22 AS postgres
 RUN addgroup -g 70 postgres
 RUN adduser -G postgres -u 70 -D postgres
 
