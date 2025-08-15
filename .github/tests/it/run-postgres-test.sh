@@ -16,6 +16,7 @@ fail(){
 
 testWithParameter(){
     var=$(docker compose exec client su client -c "/run/client/postgres-connect.sh \"$1\"")
+    echo "Client response: $var"
 
     if echo "$var" | grep -q "test@user.com"; then
         if [ "$2" -eq 1 ]; then 
