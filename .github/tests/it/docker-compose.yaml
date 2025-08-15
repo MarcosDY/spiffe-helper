@@ -39,6 +39,8 @@ services:
       - ./postgres/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
       - ./postgres/init.sql:/var/lib/postgresql/data/init.sql
     command: ["su", "-", "postgres", "-c", "/opt/helper/spiffe-helper -config /opt/spire/conf/postgres/helper.conf"]
+    networks:
+      - app-network
   
   mysql-db:
     build: mysql
@@ -53,6 +55,8 @@ services:
       - ./mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
       - ./mysql/init.sql:/var/lib/mysql/data/init.sql
     command: /opt/helper/spiffe-helper -config /opt/spire/conf/mysql/helper.conf
+    networks:
+      - app-network
 
   go-server:
     build: go-server
@@ -63,6 +67,8 @@ services:
       - ./var/run/api.sock:/var/run/api.sock
       - ./go-server/helper.conf:/opt/spire/conf/go-server/helper.conf
     command: ["su", "go-server", "-c", "/opt/helper/spiffe-helper -config /opt/spire/conf/go-server/helper.conf"]
+    networks:
+      - app-network
 
   client:
     build: client
@@ -74,3 +80,9 @@ services:
       - ./var/run/api.sock:/var/run/api.sock
       - ./client/helper.conf:/opt/spire/conf/client/helper.conf
     command: ["su", "client", "-c", "/opt/helper/spiffe-helper -config /opt/spire/conf/client/helper.conf"]
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
